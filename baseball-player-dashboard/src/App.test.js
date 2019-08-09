@@ -14,10 +14,4 @@ describe('<App />', () => {
   it('renders without crashing', () => {
     render(<App />)
   })
-
-  it('renders Hello There!', () => {
-    const app = render(<App />)
-
-    app.getByText(/hello there!/i)
-  })
 })

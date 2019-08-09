@@ -1,10 +1,10 @@
 import React from 'react'
-import Dashboard from './Dashboard'
+import Display from './components/Display.js'
 import { render } from '@testing-library/react'
 import '@testing-library/react/cleanup-after-each'
 
-describe('<Dashboard />', () => {
+describe('<Display />', () => {
   it('renders without crashing', () => {
-    render(<Dashboard />)
+    render(<Display />)
   })
 })

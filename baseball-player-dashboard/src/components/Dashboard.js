@@ -1,52 +1,60 @@
-import React, { useState } from 'react'
-import { Button, Icon, Table } from 'semantic-ui-react'
+import React, { Component } from 'react'
+import Display from './Display'
 
-export default function Dashboard() {
-  return (
-    <div className="dashboard-wrapper">
-      <Table celled structured>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell rowSpan="2">At Bat</Table.HeaderCell>
-            <Table.HeaderCell colSpan="3">Count</Table.HeaderCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell>Balls</Table.HeaderCell>
-            <Table.HeaderCell>Fouls</Table.HeaderCell>
-            <Table.HeaderCell>Strikes</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+export default class Dashboard extends Component {
+  constructor() {
+    super()
+    this.state = {
+      balls: 0,
+      fouls: 0,
+      strikes: 0
+    }
+  }
 
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>Babe Ruth</Table.Cell>
-            <Table.Cell>0 Balls</Table.Cell>
-            <Table.Cell>2 Fouls</Table.Cell>
-            <Table.Cell>
-              <Icon color="red" name="close" size="large" />
-              <Icon color="red" name="close" size="large" />
-              <Icon color="red" name="close" size="large" />
-            </Table.Cell>
-            <Table.Cell />
-            <Table.Cell />
-          </Table.Row>
-        </Table.Body>
+  ballCount = () => {
+    let { balls, strikes } = this.state
+    if (balls === 4 || strikes === 3) {
+      balls = 0
+      strikes = 0
+    } else {
+      balls++
+    }
+    this.setState({ balls, strikes })
+  }
 
-        <Table.Footer fullWidth>
-          <Table.Row>
-            <Table.HeaderCell />
-            <Table.HeaderCell>
-              <Button>Ball</Button>
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              <Button>Foul</Button>
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              <Button>Strike</Button>
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
-      </Table>
-    </div>
-  )
+  foulCount = () => {
+    let { fouls, strikes } = this.state
+    if (strikes > 1) {
+      return
+    } else {
+      fouls++
+      strikes++
+    }
+    this.setState({ fouls, strikes })
+  }
+
+  hit = () => {
+    this.setState({ balls: 0, fouls: 0, strikes: 0 })
+  }
+
+  strikeCount = () => {
+    let { strikes } = this.state
+    strikes < 3 ? strikes++ : (strikes = 0)
+    this.setState({ strikes })
+  }
+
+  render() {
+    return (
+      <div>
+        <Display
+          balls={this.state.balls}
+          strikes={this.state.strikes}
+          ballCount={this.ballCount}
+          foulCount={this.foulCount}
+          hit={this.hit}
+          strikeCount={this.strikeCount}
+        />
+      </div>
+    )
+  }
 }
