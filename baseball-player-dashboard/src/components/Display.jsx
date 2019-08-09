@@ -1,9 +1,8 @@
 import React from 'react'
-import { Button, Table } from 'semantic-ui-react'
+import { Table, Button } from 'semantic-ui-react'
 
-const Display = props => {
+export default function Display(props) {
   console.log(props)
-
   return (
     <div className="dashboard-wrapper">
       <Table celled structured>
@@ -26,14 +25,6 @@ const Display = props => {
           </Table.Row>
         </Table.Body>
       </Table>
-      <div className="btns-wrapper">
-        <Button onClick={props.ballCount}>Ball</Button>
-        <Button onClick={props.foulCount}>Foul</Button>
-        <Button onClick={props.strikeCount}>Strike</Button>
-        <Button onClick={props.hit}>Hit!!</Button>
-      </div>
     </div>
   )
 }
-
-export default Display
